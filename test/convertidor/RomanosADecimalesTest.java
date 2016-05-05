@@ -60,25 +60,37 @@ public class RomanosADecimalesTest {
 		int decimalEsperado = 391;
 		assertEquals(decimalEsperado, decimalActual);
 	}
-	
+
 	@Test
 	public void testConvertir428() {
 		int decimalActual = RomanosADecimales.convertirADecimal("CDXXVIII");
 		int decimalEsperado = 428;
 		assertEquals(decimalEsperado, decimalActual);
 	}
-	
+
 	@Test
 	public void testConvertir888() {
 		int decimalActual = RomanosADecimales.convertirADecimal("DCCCLXXXVIII");
 		int decimalEsperado = 888;
 		assertEquals(decimalEsperado, decimalActual);
 	}
-	
+
 	@Test
 	public void testConvertirNoValido() {
-		int decimalActual = RomanosADecimales.convertirADecimal("VVV");
+		int decimalActual = RomanosADecimales.convertirADecimal("");
 		int decimalEsperado = 0;
+		assertEquals(decimalEsperado, decimalActual);
+
+		decimalActual = RomanosADecimales.convertirADecimal("IIII");
+		assertEquals(decimalEsperado, decimalActual);
+
+		decimalActual = RomanosADecimales.convertirADecimal("DD");
+		assertEquals(decimalEsperado, decimalActual);
+
+		decimalActual = RomanosADecimales.convertirADecimal("VVDX");
+		assertEquals(decimalEsperado, decimalActual);
+
+		decimalActual = RomanosADecimales.convertirADecimal("LL");
 		assertEquals(decimalEsperado, decimalActual);
 	}
 }

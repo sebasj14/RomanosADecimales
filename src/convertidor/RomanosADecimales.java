@@ -9,9 +9,13 @@ import java.util.Map;
  * @author Sebastián Jiménez
  */
 public class RomanosADecimales {
+	/** Expresiones regulares para validar la sintaxis de los números romanos. */
+	private static final String REGEX_INVALIDA = "(\\w*?I{4,}\\w*?)|(\\w*?V{2,}\\w*?)|(\\w*?X{4,}\\w*?)|(\\w*?L{2,}\\w*?)|"
+			+ "(\\w*?C{4,}\\w*?)|(\\w*?D{2,}\\w*?)|(\\w*?M{4,}\\w*?)";
+	private static final String REGEX_VALIDA = "[I*?V*?X*?L*?C*?D*?M*?]*";
 
+	/** Mapa de números romanos con su equivalente en decimal. */
 	private static final Map<Character, Integer> NUMEROS_ROMANOS = new HashMap<>();
-
 	static {
 		NUMEROS_ROMANOS.put('I', 1);
 		NUMEROS_ROMANOS.put('V', 5);
@@ -22,10 +26,20 @@ public class RomanosADecimales {
 		NUMEROS_ROMANOS.put('M', 1000);
 	}
 
-	// FIXME: Verificar números no válidos. Los de 1 no repiten más de 3, los de
-	// 5 no repiten.
+	/**
+	 * Convierte un número romano entre 1 y 1000 a su equivalente en decimal.
+	 * 
+	 * @param numeroRomano
+	 *          Número escrito en romano.
+	 * @return - Equivalente en decimal. <br>
+	 *         <t> - 0 si el número romano ingresado no es válido.
+	 */
 	public static int convertirADecimal(String numeroRomano) {
 		numeroRomano = numeroRomano.toUpperCase();
+
+		if (!numeroRomanoEsValido(numeroRomano)) {
+			return 0;
+		}
 
 		char romanoActual;
 		int romanoEnDecimal = 0;
@@ -46,5 +60,17 @@ public class RomanosADecimales {
 		}
 
 		return romanoEnDecimal;
+	}
+
+	/**
+	 * Valida si el número romano está bien escrito.
+	 * 
+	 * @param numeroRomano
+	 *          Número romano a verificar.
+	 * @return true si la sintaxis del número romano es válida, false de lo
+	 *         contrario.
+	 */
+	private static boolean numeroRomanoEsValido(String numeroRomano) {
+		return !numeroRomano.matches(REGEX_INVALIDA) && numeroRomano.matches(REGEX_VALIDA);
 	}
 }
